@@ -1,0 +1,9 @@
+{% extends "base.html" %}
+{% block body %}
+	<h1>Blog Posts</h1>
+	{% for page in pages %}
+		<h2><a href="/{{ page.file }}">{{ page.yaml.title }}</a></h2>
+		{{ page.content | striptags | truncate(100) }}
+		<hr style="border: 0; border-top: 1px solid #ccc;">
+	{% endfor %}
+{% endblock %}
