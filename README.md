@@ -1,7 +1,8 @@
 # Simple Blog
 
 I wanted a very simple blog that just read markdown files and displayed them newest to oldest. I also wanted some 
-simple templating. So I made this in a night.
+simple templating. So I made this in a night. It uses [Twig](https://github.com/twigphp/Twig) for templating and
+[FrontYAML](https://github.com/mnapoli/FrontYAML) for parsing markdown.
 
 
 # Installation
