@@ -7,6 +7,7 @@ simple templating. So I made this in a night.
 # Installation
 
 * Clone this repo to where you want your blog
+* Run `composer install`
 * Done
 
 # Writing blog posts
