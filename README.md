@@ -13,7 +13,11 @@ simple templating. So I made this in a night.
 # Writing blog posts
 
 Posts live in the `content` folder, and should be named like `url-for-post/post.md`. So, a post with a URL of 
-`something-super-awesome` would live in the folder `content/something-super-awesome/post.md`
+`something-super-awesome` would live in the folder `content/something-super-awesome/post.md` Make sure to include 
+frontmatter in YAML format (parseable by [FrontYAML](https://github.com/mnapoli/FrontYAML)) that has at least:
+* date
+* author
+* title
 
 # Templates
 
