@@ -15,4 +15,8 @@ $pagesDir = dirname(dirname(__FILE__)) . DIRECTORY_SEPARATOR . 'content';
 
 $pageReader = new PageReader($pagesDir, $templatesDir);
 
-$pageReader->showPage($url);
+if ($url) {
+	$pageReader->showPage($url);
+} else {
+	$pageReader->listPages();
+}
