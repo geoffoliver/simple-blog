@@ -1,9 +1,10 @@
 {% extends "base.html" %}
 {% block title %}
 	{{ parent() }}
-	{{ page.yaml.title }} -
+	{{ page.yaml.title }} - 
 {% endblock %}
 {% block body %}
 	<h1>{{ page.yaml.title }}</h1>
+	<h5>Posted on {{ page.yaml.date | date('F j, Y') }} by {{ page.yaml.author }}</h5>
 	{{ page.content }}
 {% endblock %}

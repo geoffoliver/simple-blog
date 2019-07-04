@@ -27,7 +27,7 @@ class Renderable {
 	public function render($template, $data = []) {
 		// load up the template
 		$twigTpl = $this->twig->load($template);
-		
+
 		// return the rendered template
 		echo $twigTpl->render($data);
 	}
@@ -44,13 +44,13 @@ class PageReader extends Renderable {
 		// make sure the path ends with a slash
 		$this->path = rtrim($postsPath, DIRECTORY_SEPARATOR) . DIRECTORY_SEPARATOR;
 	}
-	
+
 
 	// displays a list of pages in the current directory and sorts them by date in descending order
 	public function listPages($template = 'index.html') {
 		// get the pages
 		$pages = $this->getPages();
-		
+
 		if ($pages) {
 			// sort pages newest to oldest
 			usort($pages, function ($a, $b) {
@@ -61,26 +61,30 @@ class PageReader extends Renderable {
 				return 0;
 			});
 		}
-		
+
 		// render the list of pages
 		$this->render($template, ['pages' => $pages]);
 	}
-	
+
 	// displays a single page
-	public function showPage($page = null, $template = 'page.html') {
+	public function showPage($page = null, $template = 'post.html') {
 		// try to find the page
 		$page = $this->getPage($page);
-		
+
 		// page not found, throw 404
 		if (!$page) {
 			$this->render('404.html');
 			return;
 		}
 
+		if (isset($page['yaml']['template'])) {
+			$template = $page['yaml']['template'];
+		}
+
 		// render the page
 		$this->render($template, ['page' => $page]);
 	}
-	
+
 	// gets a list of pages
 	private function getPages() {
 		$pages = [];
@@ -88,6 +92,9 @@ class PageReader extends Renderable {
 		$files = scandir($this->path);
 		if ($files) {
 			foreach ($files as $file) {
+				if ($file === '.' || $file === '..') {
+					continue;
+				}
 				// the current file being evaluated
 				$f = $this->path . $file;
 				// we only care about directories
@@ -102,14 +109,14 @@ class PageReader extends Renderable {
 		}
 		return $pages;
 	}
-	
+
 	// gets data for a page
 	private function getPage($page = null) {
 		// no page, no data
 		if (!$page) {
 			return null;
 		}
-		
+
 		// this is where the page file _should_ be
 		$pageFile = $this->path . $page . DIRECTORY_SEPARATOR . 'post.md';
 
@@ -121,7 +128,8 @@ class PageReader extends Renderable {
 			return [
 				'yaml' => $p->getYAML(),
 				'content' => $p->getContent(),
-				'file' => $page
+				'file' => $page,
+				'path' => str_replace(CONTENT_DIR, '', $this->path . $page)
 			];
 		}
 
