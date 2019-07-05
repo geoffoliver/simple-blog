@@ -124,9 +124,14 @@ class PageReader extends Renderable {
 		if (file_exists($pageFile) && is_readable($pageFile)) {
 			// parse the page
 			$p = $this->parser->parse(file_get_contents($pageFile));
+			$yaml = $p->getYAML();
+			// so we can have drafts
+			if (isset($yaml['published']) && !$yaml['published']) {
+				return null;
+			}
 			// return the page data
 			return [
-				'yaml' => $p->getYAML(),
+				'yaml' => $yaml,
 				'content' => $p->getContent(),
 				'file' => $page,
 				'path' => str_replace(CONTENT_DIR, '', $this->path . $page)
