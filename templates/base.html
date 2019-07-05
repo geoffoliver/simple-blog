@@ -6,10 +6,40 @@
 			body {
 				font-family: -apple-system,system-ui,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
 			}
+			header {
+				display: flex;
+				flex-direction: row;
+				align-items: center;
+				justify-content: space-between;
+				border-bottom: 1px solid #efefef;
+			}
+
+			header h1 a {
+				text-decoration: none;
+			}
+
+			header nav ul {
+				list-style: none;
+				display: flex;
+				flex-direction: row;
+			}
+
+			header nav ul li + li {
+				margin-left: 10px;
+			}
 		</style>
 	</head>
 	<body>
 		<div style="max-width: 800px; margin: 0 auto;">
+			<header>
+				<h1><a href="/">Geoff Oliver</a></h1>
+				<nav>
+					<ul>
+						<li><a href="/">Home</a></li>
+						<li><a href="/about">About</a></li>
+					</ul>
+				</nav>
+			</header>
 			{% block body %}
 				This is the body area.
 			{% endblock %}
